@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Calorie Coach</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#020617">
+  <style>
+    :root{
+      --bg:#020617; --bg2:#020617; --card:#020617;
+      --accent:#22d3ee; --accent-soft:#06b6d4;
+      --text:#e5e7eb; --muted:#9ca3af;
+      --danger:#fb7185; --ok:#4ade80; --warn:#facc15;
+    }
+    *{box-sizing:border-box;}
+    body{
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      max-width:1120px; margin:0 auto; padding:18px 16px 40px; line-height:1.45;
+      background:radial-gradient(circle at top,#1f2937 0,#020617 50%),radial-gradient(circle at bottom,#0b1120 0,#020617 55%);
+      color:var(--text);
+    }
+    h1,h2,h3{margin:6px 0 6px}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .card{
+      border:1px solid rgba(148,163,184,0.45); padding:14px 14px 16px; border-radius:16px;
+      box-shadow:0 18px 40px rgba(15,23,42,0.8); margin:10px 0;
+      background:radial-gradient(circle at top left,rgba(56,189,248,0.12) 0,transparent 55%),radial-gradient(circle at bottom right,rgba(16,185,129,0.12) 0,transparent 55%),linear-gradient(135deg,#020617,#020617 40%,#020617e6);
+    }
+    input,select,textarea,button{
+      padding:8px 10px; border-radius:10px; border:1px solid #4b5563; background:#020617; color:var(--text); font-size:13px;
+    }
+    input::placeholder,textarea::placeholder{color:#6b7280}
+    button{
+      cursor:pointer; background:var(--accent); border-color:var(--accent-soft); font-weight:500;
+      transition:background .15s,transform .1s,box-shadow .15s; box-shadow:0 10px 26px rgba(34,211,238,0.5);
+    }
+    button:hover{background:var(--accent-soft); transform:translateY(-1px); box-shadow:0 14px 32px rgba(34,211,238,0.65);}
+    button:active{transform:translateY(0); box-shadow:0 5px 14px rgba(34,211,238,0.45);}
+    button:disabled{opacity:.5; cursor:not-allowed; transform:none;}
+    button.secondary{background:transparent; color:var(--text); border-color:#4b5563; box-shadow:none;}
+    table{width:100%; border-collapse:collapse; margin-top:6px; font-size:13px;}
+    th,td{border-bottom:1px solid rgba(55,65,81,0.9); padding:5px 4px; text-align:left;}
+    th{color:var(--muted);font-weight:500}
+    .pill{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;border:1px solid transparent;margin-left:6px;}
+    .ok{background:rgba(22,163,74,0.18);color:#4ade80;border-color:#22c55e;}
+    .warn{background:rgba(234,179,8,0.14);color:#facc15;border-color:#eab308;}
+    .bad{background:rgba(248,113,113,0.2);color:#fecaca;border-color:#fb7185;}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1.3fr 1fr;gap:14px}
+    @media(max-width:880px){.grid{grid-template-columns:1fr}}
+    .small{font-size:12px}
+    .kcal{font-weight:bold}
+    .tag{background:rgba(148,163,184,0.18);border-radius:999px;padding:2px 8px;margin-left:6px;font-size:11px;}
+    .footer{margin-top:24px;color:var(--muted);font-size:11px;text-align:right}
+    .app-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding:10px 12px 14px;flex-wrap:wrap;gap:10px;}
+    .logo-title{font-size:21px;font-weight:600;letter-spacing:.02em;display:flex;align-items:center;gap:10px;}
+    .logo-badge{width:30px;height:30px;border-radius:10px;background:radial-gradient(circle at 30% 10%,#e0f2fe,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:15px;color:#0f172a;font-weight:800;box-shadow:0 9px 22px rgba(59,130,246,0.7);}
+    .profile-chip{border-radius:999px;padding:4px 10px;border:1px solid rgba(148,163,184,0.8);font-size:11px;display:inline-flex;align-items:center;gap:6px;background:rgba(15,23,42,0.9);}
+    .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:4px;}
+    .highlight-net{font-size:18px;font-weight:600;margin-right:4px;}
+    .badge-premium{font-size:11px;padding:2px 6px;border-radius:999px;border:1px dashed #facc15;color:#facc15;margin-left:6px;}
+    .ai-box{border-radius:12px;border:1px solid rgba(34,211,238,0.4);padding:10px;background:radial-gradient(circle at top,#0f172a 0,#020617 65%);font-size:12px;box-shadow:0 10px 24px rgba(8,47,73,0.8);}
+    .ai-title{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12px;font-weight:500;color:var(--accent);}
+    .ai-dot{width:7px;height:7px;border-radius:999px;background:var(--accent);box-shadow:0 0 10px rgba(34,211,238,0.9);}
+    .ai-dot.live{background:var(--ok); box-shadow:0 0 10px rgba(74,222,128,0.9);}
+    hr{border:none;border-top:1px dashed #334155;margin:10px 0;}
+    .trend-row span{display:inline-block;min-width:54px;}
+    .gps-dot{width:8px;height:8px;border-radius:999px;background:#4b5563;display:inline-block;margin-right:4px;}
+    .gps-dot.active{background:var(--ok); box-shadow:0 0 8px rgba(74,222,128,0.8); animation:pulse 1.5s infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .nutrient-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(55,65,81,0.5);font-size:12px;}
+    #setupModal{position:fixed;inset:0;background:rgba(2,6,23,0.92);display:flex;align-items:center;justify-content:center;z-index:999;padding:16px;}
+    #setupModal .card{max-width:420px;width:100%;}
+  </style>
+</head>
+<body>
+
+  <div id="setupModal" style="display:none;">
+    <div class="card">
+      <h2>⚙️ One-time setup</h2>
+      <p class="small muted">Paste your backend URL (Cloudflare Worker) to enable real AI coaching, photo scanning, and nutrient lookup. You can skip this and the app still works with basic local logging.</p>
+      <input id="workerUrlInput" type="text" placeholder="https://calorie-coach-api.yourname.workers.dev" style="width:100%;margin-bottom:10px;">
+      <div class="row">
+        <button id="saveWorkerUrl">Save & Continue</button>
+        <button id="skipWorkerUrl" class="secondary">Skip (offline mode)</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="app-header">
+    <div>
+      <div class="logo-title">
+        <div class="logo-badge">C+</div>
+        <div>
+          Smart Calorie Coach
+          <div class="small muted">AI-powered • Mood, activity & schedule aware</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="section-label">User & goal</div>
+      <div class="row">
+        <span class="profile-chip">👤 <span id="currentUserLabel">You</span></span>
+        <input id="userName" type="text" placeholder="switch user" style="width:120px;">
+        <button id="switchUser" class="secondary">Switch</button>
+        <button id="openSetup" class="secondary" title="Configure AI backend">⚙️</button>
+      </div>
+      <div class="row" style="margin-top:4px;">
+        <select id="goalSelect">
+          <option value="gain">Goal: Gain weight</option>
+          <option value="maintain">Goal: Maintain</option>
+          <option value="lose">Goal: Lose weight</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div class="card row">
+    <div><label for="date" class="small muted">Date</label><br/><input type="date" id="date"/></div>
+    <div><label for="targetMin" class="small muted">Target Min (kcal)</label><br/><input type="number" id="targetMin" value="2000" min="0"/></div>
+    <div><label for="targetMax" class="small muted">Target Max (kcal)</label><br/><input type="number" id="targetMax" value="2600" min="0"/></div>
+    <div style="margin-left:auto;align-self:flex-end;">
+      <button id="saveDay">💾 Save</button>
+      <button id="clearDay" class="secondary">🧹 Clear</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="section-label">Intake & smart logging</div>
+      <h2>Meals & Drinks</h2>
+      <div class="row">
+        <input id="mealTime" type="time"/>
+        <input id="mealItem" type="text" placeholder="item (e.g., chicken curry rice)" style="flex:1;">
+        <input id="mealKcal" type="number" placeholder="kcal (optional)" style="width:120px;">
+        <button id="addMeal">＋ Add</button>
+      </div>
+      <table id="mealsTable"><thead><tr><th>Time</th><th>Item</th><th>kcal</th><th></th></tr></thead><tbody></tbody></table>
+
+      <hr>
+      <div class="section-label">AI plate scanner</div>
+      <h3 style="margin-top:0;">📷 AI Food Photo Scanner</h3>
+      <div class="row">
+        <input type="file" id="foodImage" accept="image/*" capture="environment" style="flex:1;">
+        <button id="aiScan">Scan photo</button>
+      </div>
+      <div id="scanStatus" class="small muted"></div>
+      <div id="scanConfirm" style="display:none;margin-top:8px;border:1px solid rgba(34,211,238,0.4);border-radius:12px;padding:10px;">
+        <div class="small" style="color:var(--accent);margin-bottom:6px;">Check what the AI found — fix names/kcal or remove wrong guesses, then confirm.</div>
+        <div id="scanNote" class="small muted" style="margin-bottom:6px;"></div>
+        <div id="scanItemsList"></div>
+        <div class="row" style="margin-top:8px;">
+          <input id="scanAddItemName" type="text" placeholder="missed something? add it" style="flex:1;">
+          <input id="scanAddItemKcal" type="number" placeholder="kcal" style="width:90px;">
+          <button id="scanAddItemBtn" class="secondary">＋</button>
+        </div>
+        <div class="row" style="margin-top:8px;">
+          <button id="scanConfirmBtn">✅ Confirm & add to log</button>
+          <button id="scanCancelBtn" class="secondary">Cancel</button>
+        </div>
+      </div>
+
+      <hr>
+      <div class="section-label">Nutrients</div>
+      <h3 style="margin-top:0;">🧪 Vitamin & Nutrient Check</h3>
+      <div id="nutrientPanel" class="small muted">Add a meal, then tap "Check nutrients" on any row to see vitamins and AI feedback.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Activity & energy burn</div>
+      <h2>Schedule & Burn</h2>
+      <div class="row">
+        <span class="gps-dot" id="gpsDot"></span>
+        <button id="toggleGps" class="secondary">📍 Start live walk/train tracking</button>
+      </div>
+      <div id="gpsStatus" class="small muted" style="margin:4px 0;">GPS tracking off. Turn it on while you commute to auto-detect walking vs. train and log calories burned.</div>
+      <div class="row">
+        <input id="schStart" type="time"/>
+        <input id="schEnd" type="time"/>
+        <select id="schAct">
+          <option>class</option><option>work</option><option>walk</option>
+          <option>train</option><option>cricket</option><option>other</option>
+        </select>
+        <button id="addSch">＋ Add manually</button>
+      </div>
+      <table id="schTable"><thead><tr><th>Start</th><th>End</th><th>Activity</th><th></th></tr></thead><tbody></tbody></table>
+      <div class="small muted">Burn = duration × MET(activity) × weight × metabolism (70kg default).</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Context & mood</div>
+    <h2>Notes / Mood</h2>
+    <textarea id="notes" rows="3" style="width:100%" placeholder="sleep, stress, energy, cravings..."></textarea>
+  </div>
+
+  <div class="card" style="display:grid;grid-template-columns:1.3fr 1fr;gap:14px;">
+    <div>
+      <div class="section-label">Today</div>
+      <h2>Daily Summary</h2>
+      <div id="summary" style="margin-bottom:8px;"></div>
+      <div id="suggestions" class="small" style="margin-top:6px"></div>
+      <hr>
+      <div class="section-label">Tomorrow</div>
+      <h3>AI Prediction (simple)</h3>
+      <div id="prediction" class="small muted">Not enough history yet. Log at least 2–3 days.</div>
+    </div>
+    <div>
+      <div class="section-label">AI coach</div>
+      <div class="ai-box">
+        <div class="ai-title"><div class="ai-dot" id="aiDot"></div>🤖 Smart Coach <span id="aiModeTag" class="tag small">offline</span></div>
+        <div id="aiCoachText">Log a meal and some notes, then tap Refresh for a real AI coaching message.</div>
+        <div class="row" style="margin-top:6px;"><button id="refreshCoach" class="secondary">🔄 Refresh coach</button></div>
+        <hr>
+        <div class="small muted">Trend (last 5 days):<div id="trend" class="small" style="margin-top:4px;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">Week & export</div>
+    <h2>Weekly Overview & Data</h2>
+    <div id="weekly" class="small" style="margin-bottom:10px;"></div>
+    <div class="row">
+      <button id="exportCSV" class="secondary">⬇️ Export CSV</button>
+      <button id="exportJSON" class="secondary">⬇️ Export JSON</button>
+    </div>
+  </div>
+
+  <div class="footer">Smart Calorie Coach • Built by Shakil</div>
+
+<script>
+// ============ CONFIG ============
+let WORKER_URL = localStorage.getItem("cc_worker_url") || "";
+
+function apiUrl(path){ return WORKER_URL.replace(/\/$/,"") + path; }
+function aiEnabled(){ return !!WORKER_URL; }
+
+function updateAiModeTag(){
+  const tag = $("aiModeTag");
+  const dot = $("aiDot");
+  if(aiEnabled()){ tag.textContent="online"; dot.classList.add("live"); }
+  else { tag.textContent="offline"; dot.classList.remove("live"); }
+}
+
+$=function(id){ return document.getElementById(id); };
+
+// first-run setup modal
+window.addEventListener("load", ()=>{
+  if(!WORKER_URL){ $("setupModal").style.display="flex"; }
+});
+$("openSetup").addEventListener("click", ()=>{ $("workerUrlInput").value = WORKER_URL; $("setupModal").style.display="flex"; });
+$("saveWorkerUrl").addEventListener("click", ()=>{
+  const v = $("workerUrlInput").value.trim();
+  if(v){ WORKER_URL = v; localStorage.setItem("cc_worker_url", v); }
+  $("setupModal").style.display="none";
+  updateAiModeTag();
+});
+$("skipWorkerUrl").addEventListener("click", ()=>{ $("setupModal").style.display="none"; updateAiModeTag(); });
+
+// ============ helpers & globals ============
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+let currentUser = localStorage.getItem("babu_current_user") || "You";
+function getKey(date){ return "cc_" + currentUser + "_" + date; }
+
+const foodDB = {
+  "rice":200,"rice 1 plate":220,"chicken curry":350,"chicken curry rice":550,
+  "egg":78,"boiled egg":78,"banana":105,"milk":120,"milk 250ml":150,"bread":80,
+  "roti":110,"dal":130,"yogurt drink":160,"nuts":200,"burger":500,"ramen":600,
+  "beef bhuna":320,"cucumber":16,"chickpeas":164
+};
+
+const METS = { class:1.5, train:1.3, work:2.5, walk:3.5, cricket:6.0, other:1.3 };
+
+function hoursBetween(t1,t2){
+  if(!t1||!t2) return 0;
+  const d1=new Date("1970-01-01T"+t1), d2=new Date("1970-01-01T"+t2);
+  let diff=(d2-d1)/3.6e6;
+  return (isNaN(diff)||diff<0)?0:diff;
+}
+
+function simpleMood(notes){
+  const text=(notes||"").toLowerCase();
+  if(!text.trim()) return "neutral";
+  let score=0;
+  if(text.includes("happy")||text.includes("good")||text.includes("energy")||text.includes("excited")) score++;
+  if(text.includes("tired")||text.includes("stress")||text.includes("sad")||text.includes("anxious")) score--;
+  return score>0?"positive":score<0?"low":"neutral";
+}
+
+function loadState(date){
+  let raw=localStorage.getItem(getKey(date));
+  const def={date,targetMin:2000,targetMax:2600,meals:[],schedule:[],notes:"",goal:"maintain"};
+  if(!raw) return def;
+  try{ return {...def, ...JSON.parse(raw)}; } catch(e){ return def; }
+}
+function saveState(state){ localStorage.setItem(getKey(state.date), JSON.stringify(state)); }
+
+function computeTotals(state){
+  const intakeTotal = state.meals.reduce((s,m)=>s+Number(m.calories||0),0);
+  const burned = state.schedule.reduce((s,sc)=>{
+    const hours=hoursBetween(sc.start,sc.end);
+    const met=METS[sc.activity]||METS.other;
+    return s + hours*met*70;
+  },0);
+  return {intake:Math.round(intakeTotal), burned:Math.round(burned), net:Math.round(intakeTotal-burned)};
+}
+
+function getPastNet(offsetDays){
+  const d=new Date(); d.setDate(d.getDate()-offsetDays);
+  const st=loadState(d.toISOString().slice(0,10));
+  if(!(st.meals.length||st.schedule.length||st.notes)) return null;
+  return computeTotals(st).net;
+}
+
+function renderWeekly(){
+  const container=$("weekly"); const today=new Date();
+  let html='<table><thead><tr><th>Date</th><th>Net (kcal)</th><th>Status</th></tr></thead><tbody>';
+  for(let i=6;i>=0;i--){
+    const d=new Date(today); d.setDate(today.getDate()-i);
+    const iso=d.toISOString().slice(0,10); const st=loadState(iso);
+    let net="",badge="";
+    if(st.meals.length||st.schedule.length||st.notes){
+      net=computeTotals(st).net;
+      const min=Number(st.targetMin||2000), max=Number(st.targetMax||2600);
+      let status,cls;
+      if(net<min){status="UNDER";cls="bad";} else if(net<=max){status="ON";cls="ok";} else {status="OVER";cls="warn";}
+      badge=`<span class="pill ${cls}">${status}</span>`;
+    }
+    html+=`<tr><td>${iso}</td><td>${net}</td><td>${badge}</td></tr>`;
+  }
+  container.innerHTML = html+"</tbody></table>";
+}
+
+function renderTrend(){
+  const trendDiv=$("trend"); let points=[];
+  for(let i=4;i>=0;i--){ const net=getPastNet(i); if(net==null) continue;
+    const d=new Date(); d.setDate(d.getDate()-i);
+    points.push({label:(d.getMonth()+1)+"/"+d.getDate(), net}); }
+  if(!points.length){ trendDiv.textContent="Not enough logs yet."; return; }
+  trendDiv.innerHTML = points.map((p,idx)=>{
+    let arrow="–";
+    if(idx>0){ const diff=p.net-points[idx-1].net; arrow = diff>150?"⬆️":diff<-150?"⬇️":"➡️"; }
+    return `<div class="trend-row"><span>${p.label}</span> ${p.net} kcal ${arrow}</div>`;
+  }).join("");
+}
+
+function renderPrediction(){
+  const nets=[]; for(let i=1;i<=3;i++){ const n=getPastNet(i); if(n!=null) nets.push(n); }
+  const box=$("prediction");
+  if(nets.length<2){ box.textContent="Not enough history yet."; return; }
+  const avg=nets.reduce((a,b)=>a+b,0)/nets.length;
+  box.innerHTML=`Based on your last ${nets.length} days, estimated net need for tomorrow: <b>${Math.round(avg-150)}–${Math.round(avg+150)} kcal</b>.`;
+}
+
+function localCoachMessage(state, totals){
+  const mood=simpleMood(state.notes); const goal=state.goal||"maintain"; const {net}=totals;
+  const min=Number(state.targetMin||0), max=Number(state.targetMax||0);
+  let msg="";
+  if(goal==="gain"){ msg += net<min? "You're in deficit for your gain goal — add a dense snack. " : net>max? "Crossed your gain target by a lot — focus on protein. " : "Nice, healthy surplus for gaining. "; }
+  else if(goal==="maintain"){ msg += net<min? "Slightly under maintenance — a small snack helps. " : net>max? "Above maintenance — balance it tomorrow. " : "On target for maintenance. "; }
+  else { msg += net<min? "Good deficit for weight loss — keep protein up. " : net>max? "A bit high for weight loss today. " : "Controlled deficit zone — good job. "; }
+  if(mood==="low") msg += "Notes sound tired/stressed — prioritise sleep and water. ";
+  else if(mood==="positive") msg += "Good mood today — great day to build the habit. ";
+  return msg;
+}
+
+async function fetchAiCoach(state, totals){
+  if(!aiEnabled()) return localCoachMessage(state, totals);
+  try{
+    const res = await fetch(apiUrl("/api/coach"), {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({
+        notes: state.notes, goal: state.goal, net: totals.net,
+        min: state.targetMin, max: state.targetMax, mood: simpleMood(state.notes),
+        schedule: state.schedule, meals: state.meals
+      })
+    });
+    if(!res.ok) throw new Error("bad response");
+    const data = await res.json();
+    return data.message || localCoachMessage(state, totals);
+  }catch(e){
+    console.warn("AI coach failed, using local fallback", e);
+    return localCoachMessage(state, totals) + " (offline fallback)";
+  }
+}
+
+function render(state){
+  $("currentUserLabel").innerText = currentUser;
+  $("date").value = state.date;
+  $("targetMin").value = state.targetMin;
+  $("targetMax").value = state.targetMax;
+  $("notes").value = state.notes;
+  $("goalSelect").value = state.goal || "maintain";
+  updateAiModeTag();
+
+  const tb=$("mealsTable").querySelector("tbody"); tb.innerHTML="";
+  state.meals.sort((a,b)=>a.time.localeCompare(b.time));
+  state.meals.forEach((m,idx)=>{
+    const tr=document.createElement("tr");
+    tr.innerHTML = `<td>${m.time||""}</td><td>${m.item||""}</td><td class="kcal">${Number(m.calories||0)}</td>
+    <td><button data-type="nutrient" data-idx="${idx}" class="secondary small">🧪</button> <button data-type="delMeal" data-idx="${idx}" class="secondary small">🗑</button></td>`;
+    tb.appendChild(tr);
+  });
+
+  const sb=$("schTable").querySelector("tbody"); sb.innerHTML="";
+  state.schedule.sort((a,b)=>a.start.localeCompare(b.start));
+  state.schedule.forEach((s,idx)=>{
+    const icon = s.activity==="class"?"🏫":s.activity==="train"?"🚆":s.activity==="work"?"🧑‍💼":s.activity==="walk"?"🚶":s.activity==="cricket"?"🏏":"🕒";
+    const tr=document.createElement("tr");
+    tr.innerHTML = `<td>${s.start||""}</td><td>${s.end||""}</td><td>${icon} ${s.activity||""}</td>
+    <td><button data-type="delSch" data-idx="${idx}" class="secondary small">🗑</button></td>`;
+    sb.appendChild(tr);
+  });
+
+  const totals = computeTotals(state);
+  const {intake,burned,net} = totals;
+  const min=Number(state.targetMin||0), max=Number(state.targetMax||0);
+  let status,pillClass;
+  if(net<min){status="UNDER";pillClass="bad";} else if(net<=max){status="ON TRACK";pillClass="ok";} else {status="OVER";pillClass="warn";}
+  const remaining = net<min ? (min-net) : 0;
+  const mood=simpleMood(state.notes);
+  const moodTag = mood==="positive" ? `<span class="tag">Mood: 😊 positive</span>` : mood==="low" ? `<span class="tag">Mood: 😴 low</span>` : `<span class="tag">Mood: 😐 neutral</span>`;
+
+  $("summary").innerHTML = `<div>
+    <span class="highlight-net">${net} kcal</span> net
+    <span class="tag">Intake: ${intake} kcal</span>
+    <span class="tag">Burned: ${burned} kcal</span>
+    <span class="tag">${state.goal==="gain"?"Gain":state.goal==="lose"?"Lose":"Maintain"}</span>
+    <span class="tag">Target ${min}–${max}</span>
+    <span class="pill ${pillClass}">${status}</span>
+    ${remaining>0?`<span class="tag">Need +${remaining} kcal</span>`:""}
+    ${moodTag}
+  </div>`;
+
+  let sug=[];
+  if(remaining>0){
+    if(remaining>=1200) sug.push("🍛 Big meal: chicken curry rice (~1100–1300 kcal).");
+    else if(remaining>=700) sug.push("🥯 Medium snack: bread + yogurt drink (~700–900 kcal).");
+    else if(remaining>=400) sug.push("🥛 Light snack: milk + nuts (~400–600 kcal).");
+    else sug.push("🍫 Small snack: fruit + a little chocolate.");
+  } else sug.push("✅ Target reached. Focus on protein and sleep.");
+  if(mood==="low") sug.push("🧠 Mood low — hydrate, take a short break.");
+  $("suggestions").innerText = "Suggestions: " + sug.join("  •  ");
+
+  renderWeekly(); renderTrend(); renderPrediction();
+}
+
+function gatherState(){
+  const date=$("date").value||todayISO(); const state=loadState(date);
+  state.date=date;
+  state.targetMin=Number($("targetMin").value||2000);
+  state.targetMax=Number($("targetMax").value||2600);
+  state.notes=$("notes").value||"";
+  state.goal=$("goalSelect").value||"maintain";
+  return state;
+}
+
+let state = loadState(todayISO());
+window.addEventListener("load", ()=>{
+  $("date").value = state.date || todayISO();
+  $("currentUserLabel").innerText = currentUser;
+  $("goalSelect").value = state.goal || "maintain";
+  render(state);
+});
+
+$("switchUser").addEventListener("click", ()=>{
+  const name=$("userName").value.trim()||"You";
+  currentUser=name; localStorage.setItem("babu_current_user", currentUser);
+  state=loadState($("date").value||todayISO()); render(state);
+});
+
+$("addMeal").addEventListener("click", ()=>{
+  const st=gatherState();
+  const t=$("mealTime").value || new Date().toLocaleTimeString("en-US",{hour12:false});
+  const item=$("mealItem").value.trim();
+  const manualKcal=Number($("mealKcal").value||0);
+  const dbKcal=foodDB[item.toLowerCase()]||0;
+  let kcal = manualKcal>0?manualKcal : dbKcal>0?dbKcal : 0;
+  if(!item){ alert("Enter item name."); return; }
+  if(kcal===0){ if(!confirm("Unknown kcal for this item — add with 0 kcal? (You can edit later)")) return; }
+  st.meals.push({time:t,item,calories:kcal});
+  saveState(st); state=st; render(state);
+  $("mealItem").value=""; $("mealKcal").value="";
+});
+
+// ---- AI photo scan ----
+function fileToBase64(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result.split(",")[1]);
+    reader.onerror=reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+let pendingScanItems = []; // {item, estimated_calories, confidence}
+
+function renderScanItems(){
+  const list = $("scanItemsList");
+  if(!pendingScanItems.length){
+    list.innerHTML = `<div class="small muted">No items left — add some below, or cancel.</div>`;
+    return;
+  }
+  list.innerHTML = pendingScanItems.map((it,idx)=>`
+    <div class="row" style="margin-top:4px;">
+      <input data-scanidx="${idx}" data-field="item" type="text" value="${(it.item||"").replace(/"/g,'&quot;')}" style="flex:1;">
+      <input data-scanidx="${idx}" data-field="estimated_calories" type="number" value="${it.estimated_calories||0}" style="width:90px;">
+      <span class="small muted">${it.confidence||""}</span>
+      <button data-scanidx="${idx}" data-action="removeScan" class="secondary small">🗑</button>
+    </div>
+  `).join("");
+}
+
+$("scanItemsList").addEventListener("input", (e)=>{
+  const idx = e.target.getAttribute("data-scanidx"); const field = e.target.getAttribute("data-field");
+  if(idx==null || !field) return;
+  pendingScanItems[idx][field] = field==="estimated_calories" ? Number(e.target.value||0) : e.target.value;
+});
+$("scanItemsList").addEventListener("click", (e)=>{
+  const btn = e.target.closest("button"); if(!btn) return;
+  if(btn.getAttribute("data-action")==="removeScan"){
+    pendingScanItems.splice(Number(btn.getAttribute("data-scanidx")),1);
+    renderScanItems();
+  }
+});
+$("scanAddItemBtn").addEventListener("click", ()=>{
+  const name = $("scanAddItemName").value.trim();
+  const kcal = Number($("scanAddItemKcal").value||0);
+  if(!name){ return; }
+  pendingScanItems.push({ item:name, estimated_calories:kcal, confidence:"manual" });
+  $("scanAddItemName").value=""; $("scanAddItemKcal").value="";
+  renderScanItems();
+});
+$("scanCancelBtn").addEventListener("click", ()=>{
+  pendingScanItems=[]; $("scanConfirm").style.display="none"; $("scanStatus").textContent="Scan cancelled.";
+});
+$("scanConfirmBtn").addEventListener("click", ()=>{
+  const st = gatherState();
+  const nowTime = new Date().toLocaleTimeString("en-US",{hour12:false});
+  pendingScanItems.forEach(it=>{
+    if(!it.item) return;
+    st.meals.push({ time: nowTime, item: `(AI) ${it.item}`, calories: Number(it.estimated_calories||0) });
+  });
+  saveState(st); state=st; render(state);
+  $("scanConfirm").style.display="none";
+  $("scanStatus").textContent = `Added ${pendingScanItems.length} item(s) to your log.`;
+  pendingScanItems=[];
+});
+
+$("aiScan").addEventListener("click", async ()=>{
+  const file = $("foodImage").files[0];
+  if(!file){ alert("Choose a photo first."); return; }
+  if(!aiEnabled()){ alert("AI backend not configured yet. Tap ⚙️ to set it up."); return; }
+  $("scanStatus").textContent = "Scanning...";
+  $("scanConfirm").style.display = "none";
+  try{
+    const base64 = await fileToBase64(file);
+    const res = await fetch(apiUrl("/api/scan"), {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ imageBase64: base64, mimeType: file.type })
+    });
+    const data = await res.json();
+    pendingScanItems = Array.isArray(data.items) ? data.items : [];
+    $("scanNote").textContent = data.overall_note || "";
+    renderScanItems();
+    $("scanStatus").textContent = pendingScanItems.length
+      ? `Found ${pendingScanItems.length} item(s) — review below before adding.`
+      : "Couldn't identify anything confidently — add items manually below.";
+    $("scanConfirm").style.display = "block";
+  }catch(e){
+    $("scanStatus").textContent = "Scan failed: " + e.message;
+  }
+});
+
+// ---- Nutrient lookup ----
+async function showNutrients(item){
+  const panel = $("nutrientPanel");
+  if(!aiEnabled()){ panel.innerHTML = "AI backend not configured. Tap ⚙️ to set it up."; return; }
+  panel.innerHTML = `Checking nutrients for <b>${item}</b>...`;
+  try{
+    const st = gatherState();
+    const res = await fetch(apiUrl("/api/nutrients"), {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ foodName: item, goal: st.goal })
+    });
+    const data = await res.json();
+    let rows = (data.nutrients||[]).map(n=>`<div class="nutrient-row"><span>${n.name}</span><span>${n.amount} ${n.unit}</span></div>`).join("");
+    panel.innerHTML = `<b>${data.foodName}</b><div style="margin:6px 0;">${rows || "<span class='muted'>No detailed nutrient data found.</span>"}</div><div class="small" style="color:var(--accent);">${data.summary || ""}</div>`;
+  }catch(e){
+    panel.innerHTML = "Nutrient lookup failed: " + e.message;
+  }
+}
+
+// ---- GPS walk/train detection ----
+let gpsWatchId = null;
+let gpsTrack = { active:false, lastFix:null, startTime:null, samples:[] };
+
+function haversine(lat1,lon1,lat2,lon2){
+  const R=6371e3, toRad=x=>x*Math.PI/180;
+  const dLat=toRad(lat2-lat1), dLon=toRad(lon2-lon1);
+  const a=Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
+  return R * 2*Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+$("toggleGps").addEventListener("click", ()=>{
+  if(gpsTrack.active){ stopGpsTracking(); } else { startGpsTracking(); }
+});
+
+function startGpsTracking(){
+  if(!navigator.geolocation){ $("gpsStatus").textContent="Geolocation not supported on this device."; return; }
+  gpsTrack = { active:true, lastFix:null, startTime:new Date(), samples:[] };
+  $("gpsDot").classList.add("active");
+  $("toggleGps").textContent = "⏹ Stop tracking";
+  $("gpsStatus").textContent = "Tracking... move around to detect walking vs. train.";
+  gpsWatchId = navigator.geolocation.watchPosition(onGpsFix, (err)=>{
+    $("gpsStatus").textContent = "GPS error: " + err.message;
+  }, { enableHighAccuracy:true, maximumAge:5000, timeout:15000 });
+}
+
+function onGpsFix(pos){
+  const {latitude,longitude,speed} = pos.coords;
+  const now = Date.now();
+  let kmh = speed!=null ? speed*3.6 : null;
+  if(kmh==null && gpsTrack.lastFix){
+    const distM = haversine(gpsTrack.lastFix.lat, gpsTrack.lastFix.lon, latitude, longitude);
+    const dtH = (now - gpsTrack.lastFix.t) / 3.6e6;
+    kmh = dtH>0 ? (distM/1000)/dtH : 0;
+  }
+  gpsTrack.lastFix = {lat:latitude, lon:longitude, t:now};
+  if(kmh!=null) gpsTrack.samples.push(kmh);
+
+  const avgKmh = gpsTrack.samples.slice(-5).reduce((a,b)=>a+b,0) / Math.max(1,gpsTrack.samples.slice(-5).length);
+  let activity = "other";
+  if(avgKmh < 1) activity = "stationary";
+  else if(avgKmh < 8) activity = "walk";
+  else activity = "train"; // >8km/h sustained = vehicle/train, not walking pace
+
+  $("gpsStatus").innerHTML = `Speed ~${avgKmh.toFixed(1)} km/h → detected: <b>${activity}</b>`;
+  gpsTrack.currentActivity = activity;
+}
+
+function stopGpsTracking(){
+  if(gpsWatchId!=null) navigator.geolocation.clearWatch(gpsWatchId);
+  gpsWatchId = null;
+  $("gpsDot").classList.remove("active");
+  $("toggleGps").textContent = "📍 Start live walk/train tracking";
+
+  if(gpsTrack.startTime && gpsTrack.currentActivity && gpsTrack.currentActivity!=="stationary"){
+    const start = gpsTrack.startTime;
+    const end = new Date();
+    const fmt = d => d.toTimeString().slice(0,5);
+    const st = gatherState();
+    st.schedule.push({ start: fmt(start), end: fmt(end), activity: gpsTrack.currentActivity });
+    saveState(st); state=st; render(state);
+    $("gpsStatus").textContent = `Logged ${gpsTrack.currentActivity} from ${fmt(start)} to ${fmt(end)}.`;
+  } else {
+    $("gpsStatus").textContent = "Tracking stopped. Not enough movement detected to log.";
+  }
+  gpsTrack.active = false;
+}
+
+$("addSch").addEventListener("click", ()=>{
+  const st=gatherState();
+  const start=$("schStart").value, end=$("schEnd").value, activity=$("schAct").value||"other";
+  if(!start||!end){ alert("Enter start and end time."); return; }
+  st.schedule.push({start,end,activity});
+  saveState(st); state=st; render(state);
+});
+
+document.body.addEventListener("click",(e)=>{
+  const btn=e.target.closest("button"); if(!btn) return;
+  const type=btn.getAttribute("data-type"); const idx=Number(btn.getAttribute("data-idx"));
+  if(Number.isNaN(idx)) return;
+  if(type==="delMeal"){ const st=gatherState(); st.meals.splice(idx,1); saveState(st); state=st; render(state); }
+  else if(type==="delSch"){ const st=gatherState(); st.schedule.splice(idx,1); saveState(st); state=st; render(state); }
+  else if(type==="nutrient"){ const st=gatherState(); showNutrients(st.meals[idx].item.replace(/^\(AI\)\s*/,"")); }
+});
+
+$("date").addEventListener("change", ()=>{ state=loadState($("date").value); render(state); });
+["targetMin","targetMax","notes","goalSelect"].forEach(id=>{
+  $(id).addEventListener("input", ()=>{ const st=gatherState(); saveState(st); render(st); });
+});
+
+$("saveDay").addEventListener("click", ()=>{ const st=gatherState(); saveState(st); alert("Saved!"); });
+$("clearDay").addEventListener("click", ()=>{ const d=$("date").value||todayISO(); localStorage.removeItem(getKey(d)); state=loadState(d); render(state); });
+
+$("refreshCoach").addEventListener("click", async ()=>{
+  const st=gatherState(); const totals=computeTotals(st);
+  $("aiCoachText").textContent = "Thinking...";
+  $("aiCoachText").textContent = await fetchAiCoach(st, totals);
+});
+
+$("exportCSV").addEventListener("click", ()=>{
+  const st=gatherState();
+  let rows=[["user","date","time","item","calories","type","start","end","activity","notes","goal"]];
+  st.meals.forEach(m=>rows.push([currentUser,st.date,m.time||"",m.item||"",m.calories||"","meal","","","",st.notes.replace(/\n/g," "),st.goal]));
+  st.schedule.forEach(s=>rows.push([currentUser,st.date,"","","","schedule",s.start||"",s.end||"",s.activity||"",st.notes.replace(/\n/g," "),st.goal]));
+  const csv=rows.map(r=>r.map(x=>String(x).includes(",")?`"${String(x).replaceAll('"','""')}"`:String(x)).join(",")).join("\n");
+  const blob=new Blob([csv],{type:"text/csv"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`daily_log_${currentUser}_${st.date}.csv`; a.click();
+});
+$("exportJSON").addEventListener("click", ()=>{
+  const st=gatherState(); const data={user:currentUser, ...st};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=`daily_log_${currentUser}_${st.date}.json`; a.click();
+});
+
+if("serviceWorker" in navigator){
+  window.addEventListener("load", ()=>{ navigator.serviceWorker.register("./sw.js").catch(()=>{}); });
+}
+</script>
+</body>
+</html>
