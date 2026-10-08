@@ -1,0 +1,63 @@
+<svg width="1200" height="220" viewBox="0 0 1200 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#58a6ff"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="220" fill="#0d1117"/>
+  <text x="600" y="28" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="bold" fill="#e6edf3" text-anchor="middle">My Kali Linux Learning Journey</text>
+
+  <!-- arrows -->
+  <line x1="147" y1="110" x2="165" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="295" y1="110" x2="313" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="443" y1="110" x2="461" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="591" y1="110" x2="609" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="739" y1="110" x2="757" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="887" y1="110" x2="905" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="1035" y1="110" x2="1053" y2="110" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- boxes -->
+  <g font-family="Arial, Helvetica, sans-serif">
+    <!-- 1 Setup -->
+    <circle cx="82" cy="65" r="12" fill="#1f6feb"/><text x="82" y="70" font-size="12" fill="#ffffff" text-anchor="middle">1</text>
+    <rect x="17" y="75" width="130" height="70" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="82" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">Setup</text>
+
+    <!-- 2 Linux -->
+    <circle cx="230" cy="65" r="12" fill="#1f6feb"/><text x="230" y="70" font-size="12" fill="#ffffff" text-anchor="middle">2</text>
+    <rect x="165" y="75" width="130" height="70" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="230" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">Linux</text>
+
+    <!-- 3 Nmap -->
+    <circle cx="378" cy="65" r="12" fill="#1f6feb"/><text x="378" y="70" font-size="12" fill="#ffffff" text-anchor="middle">3</text>
+    <rect x="313" y="75" width="130" height="70" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="378" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">Nmap</text>
+
+    <!-- 4 Web -->
+    <circle cx="526" cy="65" r="12" fill="#1f6feb"/><text x="526" y="70" font-size="12" fill="#ffffff" text-anchor="middle">4</text>
+    <rect x="461" y="75" width="130" height="70" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="526" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">Web Basics</text>
+
+    <!-- 5 Burp -->
+    <circle cx="674" cy="65" r="12" fill="#1f6feb"/><text x="674" y="70" font-size="12" fill="#ffffff" text-anchor="middle">5</text>
+    <rect x="609" y="75" width="130" height="70" rx="8" fill="#161b22" stroke="#30363d"/>
+    <text x="674" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">Burp Suite</text>
+
+    <!-- 6 SQLi -->
+    <circle cx="822" cy="65" r="12" fill="#f85149"/><text x="822" y="70" font-size="12" fill="#ffffff" text-anchor="middle">6</text>
+    <rect x="757" y="75" width="130" height="70" rx="8" fill="#2a1518" stroke="#f85149"/>
+    <text x="822" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">SQL Injection</text>
+
+    <!-- 7 XSS -->
+    <circle cx="970" cy="65" r="12" fill="#f85149"/><text x="970" y="70" font-size="12" fill="#ffffff" text-anchor="middle">7</text>
+    <rect x="905" y="75" width="130" height="70" rx="8" fill="#2a1518" stroke="#f85149"/>
+    <text x="970" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">XSS</text>
+
+    <!-- 8 Ethics -->
+    <circle cx="1118" cy="65" r="12" fill="#3fb950"/><text x="1118" y="70" font-size="12" fill="#ffffff" text-anchor="middle">8</text>
+    <rect x="1053" y="75" width="130" height="70" rx="8" fill="#12231a" stroke="#3fb950"/>
+    <text x="1118" y="115" font-size="13" fill="#e6edf3" text-anchor="middle">Stay Legal</text>
+  </g>
+
+  <text x="600" y="185" font-family="Arial, Helvetica, sans-serif" font-size="13" fill="#8b949e" text-anchor="middle">Linux fundamentals → network recon → web recon → real attacks → the legal line</text>
+</svg>
