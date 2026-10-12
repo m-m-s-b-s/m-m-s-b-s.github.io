@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shakil — Digital Business & Innovation | Saitama, Japan</title>
-<meta name="description" content="Portfolio of Md. Moniruzzaman Sadi Shakil — Digital Business & Innovation graduate, app builder, and tech entrepreneur based in Saitama, Japan.">
+<title>Md. Moniruzzaman Sadi Shakil — IT & Digital Business | Saitama, Japan</title>
+<meta name="description" content="Portfolio of Md. Moniruzzaman Sadi Shakil — Digital Business & Innovation student at Tokyo International University (graduating Aug 2027). App builder, IT security learner, seeking full-time IT roles in Japan.">
 <meta name="author" content="Md. Moniruzzaman Sadi Shakil">
-<meta property="og:title" content="Shakil — Builds Things That Matter">
-<meta property="og:description" content="App builder, tech entrepreneur, and soon-to-be founder. Based in Saitama, Japan.">
+<meta property="og:title" content="Shakil — IT &amp; Digital Business | Tokyo International University">
+<meta property="og:description" content="Digital Business &amp; Innovation student (graduating Aug 2027). I build apps and study IT security. Based in Saitama, Japan.">
+<meta property="og:url" content="https://m-m-s-b-s.github.io/">
+<meta property="og:image" content="https://m-m-s-b-s.github.io/shakil-photo.jpg">
+<meta name="twitter:card" content="summary">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#00d4aa">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -296,12 +299,11 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <nav id="navbar">
-  <a href="#" class="nav-logo">shakil<span>.dev</span></a>
+  <a href="#hero" class="nav-logo">Shakil<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li><li><a href="#timeline">Journey</a></li>
     <li><a href="#projects">Projects</a></li><li><a href="#blog">Posts</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#" class="nav-admin-btn" onclick="openAdmin();return false;">Admin</a></li>
   </ul>
   <div class="nav-hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></div>
 </nav>
@@ -309,24 +311,24 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
   <a href="#about" onclick="toggleMobile()">About</a><a href="#timeline" onclick="toggleMobile()">Journey</a>
   <a href="#projects" onclick="toggleMobile()">Projects</a><a href="#blog" onclick="toggleMobile()">Posts</a>
   <a href="#contact" onclick="toggleMobile()">Contact</a>
-  <a href="#" onclick="toggleMobile();openAdmin();return false;" style="color:var(--accent)">Admin</a>
 </div>
 <section id="hero">
   <canvas id="hero3d" aria-hidden="true"></canvas>
   <div class="hero-glow"></div><div class="hero-glow2"></div>
-  <div class="hero-tag">Based in Saitama, Japan 🇯🇵</div>
+  <div class="hero-tag">Based in Saitama, Japan 🇯🇵 · Available from Aug 2027</div>
   <h1 class="hero-name">Shakil<br><span class="accent">Builds.</span></h1>
   <p class="hero-subtitle">Digital Business × Innovation × Code</p>
-  <p class="hero-desc">Turning ideas into real products — one line of code and one business model at a time. Final-year student, part-time IT professional, and soon-to-be founder.</p>
+  <p class="hero-desc">Digital Business student at Tokyo International University, graduating Aug 2027. I build apps, study IT security, and I am looking for a full-time IT role in Japan.</p>
   <div class="hero-cta">
     <a href="#projects" class="btn-primary">View My Work</a>
+    <a href="resume.pdf" target="_blank" rel="noopener" class="btn-secondary" id="resumeBtn" style="display:none;">Download Resume (PDF)</a>
     <a href="#blog" class="btn-secondary">Read Posts</a>
     <a href="#contact" class="btn-secondary">Get In Touch</a>
   </div>
   <div class="hero-stats">
-    <div class="stat"><span class="stat-num">6th</span><span class="stat-label">Semester @ TIU</span></div>
-    <div class="stat"><span class="stat-num" id="postCountHero">0</span><span class="stat-label">Posts Published</span></div>
-    <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Ideas in queue</span></div>
+    <div class="stat"><span class="stat-num">7th</span><span class="stat-label">Semester @ TIU</span></div>
+    <div class="stat"><span class="stat-num">Aug 2027</span><span class="stat-label">Graduation</span></div>
+    <div class="stat"><span class="stat-num">6</span><span class="stat-label">Public GitHub repos</span></div>
   </div>
   <div class="hero-photo">
     <img class="hero-photo-img" id="heroPhoto" src="shakil-photo.jpg" alt="Shakil in Japan">
@@ -339,9 +341,10 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
   <div class="section-line"></div>
   <div class="about-grid">
     <div class="about-text">
-      <p>I'm <strong>Md. Moniruzzaman Sadi Shakil</strong> — a Digital Business & Innovation student at Tokyo International University (TIU), graduating in 2027. Working part-time in diffrent sector and obsess over building things that actually <strong>work in the real world</strong>.</p>
+      <p>I'm <strong>Md. Moniruzzaman Sadi Shakil</strong> — a Digital Business & Innovation student at Tokyo International University (TIU), graduating in August 2027. I work part-time in a different sector and love building things that actually <strong>work in the real world</strong>. I am looking for a full-time IT role in Japan after graduation.</p>
       <p>My focus is at the crossroads of <strong>technology and business</strong> — building apps that solve real problems, understanding how systems break, and turning ideas into monetizable products.</p>
       <p>Cricket keeps me grounded. Japan keeps me hungry. Code keeps me honest.</p>
+      <p lang="ja" style="color:var(--text2);">はじめまして、シャキルです。東京国際大学で デジタルビジネスを まなんでいます。2027年8月に そつぎょうします。アプリを つくることと、ITセキュリティが すきです。そつぎょうごは、日本の IT企業で はたらきたいです。</p>
       <div class="about-links">
         <a href="https://github.com/m-m-s-b-s" target="_blank" class="about-link">⌥ GitHub</a>
         <a href="https://www.linkedin.com/in/md-moniruzzaman-sadi-babu-b61b211a0/" target="_blank" class="about-link">⊞ LinkedIn</a>
@@ -357,7 +360,7 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
       </div>
       <div class="currently-box">
         <div class="currently-label"><span class="currently-dot"></span>Currently</div>
-        <div class="currently-text">Final semester at TIU · Team Leader at Sizzler Japan · Building apps post-graduation</div>
+        <div class="currently-text">7th semester at TIU · Team Leader at Sizzler Japan · Learning IT security · Building Calorie Coach</div>
       </div>
     </div>
   </div>
@@ -367,10 +370,11 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
     <p class="section-label">Journey</p>
     <h2 class="section-title">My Path</h2>
     <div class="section-line"></div>
-    <div class="tl-item"><div class="tl-dot">🎓</div><div class="tl-content"><div class="tl-date">2023 — PRESENT</div><div class="tl-title">Tokyo International University</div><div class="tl-sub">B.S. Digital Business & Innovation · 6th Semester · Saitama, Japan</div></div></div>
+    <div class="tl-item"><div class="tl-dot">🎓</div><div class="tl-content"><div class="tl-date">2023 — PRESENT</div><div class="tl-title">Tokyo International University</div><div class="tl-sub">B.S. Digital Business & Innovation · 7th Semester · Expected graduation Aug 2027 · Saitama, Japan</div></div></div>
     <div class="tl-item"><div class="tl-dot">🍽️</div><div class="tl-content"><div class="tl-date">2023 — PRESENT</div><div class="tl-title">Team Leader — Sizzler Restaurant</div><div class="tl-sub">Part-time leader role at Sizzler Japan since 2023. Managing shifts, leading the team, and delivering great customer experience — all while studying full-time.</div></div></div>
+    <div class="tl-item"><div class="tl-dot">📚</div><div class="tl-content"><div class="tl-date">2021 — 2023</div><div class="tl-title">Teacher &amp; Manager — MFI Teaching Home</div><div class="tl-sub">Started as a teacher, then took over management of the teaching home (Jan 2021 – Aug 2023) before moving to Japan.</div></div></div>
     <div class="tl-item"><div class="tl-dot">📱</div><div class="tl-content"><div class="tl-date">2025</div><div class="tl-title">JLPTify App</div><div class="tl-sub">Built a Japanese vocabulary learning app for JLPT N5–N1 in React Native + Expo</div></div></div>
-    <div class="tl-item"><div class="tl-dot">🚀</div><div class="tl-content"><div class="tl-date">2026 — SOON</div><div class="tl-title">Graduation & Entrepreneurship</div><div class="tl-sub">Launching first business post-graduation · Building products that matter</div></div></div>
+    <div class="tl-item"><div class="tl-dot">🚀</div><div class="tl-content"><div class="tl-date">AUG 2027</div><div class="tl-title">Graduation</div><div class="tl-sub">Open to full-time IT, security and data roles in Japan · Building products on the side</div></div></div>
   </div>
 </section>
 <section id="projects">
@@ -379,9 +383,10 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
     <h2 class="section-title">Projects I've Built</h2>
     <div class="section-line"></div>
     <div class="projects-grid">
-      <div class="project-card"><span class="project-num">01</span><span class="project-tag">AI × Health</span><h3 class="project-title">Smart Calorie Coach</h3><p class="project-desc">An AI-powered nutrition tracking app that analyses meals, estimates calories intelligently, and gives personalised coaching — no manual logging needed.</p><div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">AI/LLM</span><span class="stack-tag">Mobile</span></div><div class="project-links"><a href="https://github.com/m-m-s-b-s" target="_blank" class="project-link">↗ GitHub</a></div></div>
-      <div class="project-card"><span class="project-num">02</span><span class="project-tag">Mobile × Language</span><h3 class="project-title">JLPTify</h3><p class="project-desc">A Japanese/English vocabulary learning app for JLPT N5–N1 with flashcards, spaced repetition, quiz mode and streak tracking. Built with React Native + Expo.</p><div class="project-stack"><span class="stack-tag">React Native</span><span class="stack-tag">Expo</span><span class="stack-tag">Mobile</span></div><div class="project-links"><a href="https://github.com/m-m-s-b-s" target="_blank" class="project-link">↗ GitHub</a></div></div>
-      <div class="project-card" id="comingSoonCard" style="border-style:dashed;opacity:.6;display:none;"><span class="project-num">03</span><span class="project-tag">Coming Soon</span><h3 class="project-title">Next Project</h3><p class="project-desc">Something is being built. Watch this space — the next product launches post-graduation.</p><div class="project-stack"><span class="stack-tag">TBA</span></div></div>
+      <div class="project-card"><span class="project-num">01</span><span class="project-tag">AI × Health · In development</span><h3 class="project-title">Calorie Coach</h3><p class="project-desc">A personal AI calorie and nutrition coach. Type or photograph a meal and it estimates calories and nutrients. Installable web app (PWA) with an AI backend. Early version is live for testing.</p><div class="project-stack"><span class="stack-tag">JavaScript</span><span class="stack-tag">PWA</span><span class="stack-tag">Gemini API</span></div><div class="project-links"><a href="calorie-coach/" target="_blank" rel="noopener" class="project-link">↗ Try it</a><a href="https://github.com/m-m-s-b-s/m-m-s-b-s.github.io/tree/main/calorie-coach" target="_blank" rel="noopener" class="project-link">↗ Code</a></div></div>
+      <div class="project-card"><span class="project-num">02</span><span class="project-tag">Mobile × Language</span><h3 class="project-title">JLPTify</h3><p class="project-desc">A Japanese vocabulary app for JLPT N5–N1 with 300 words, flashcards, quiz mode and streak tracking. Built from zero coding experience with React Native + Expo.</p><div class="project-stack"><span class="stack-tag">React Native</span><span class="stack-tag">Expo</span><span class="stack-tag">Mobile</span></div><div class="project-links"><a href="https://github.com/m-m-s-b-s/JLPTify" target="_blank" rel="noopener" class="project-link">↗ GitHub</a></div></div>
+      <div class="project-card"><span class="project-num">03</span><span class="project-tag">AI × Decision Making</span><h3 class="project-title">NEXUS</h3><p class="project-desc">Decision-support system that allocates food, water, energy and oxygen across space colonies during crises. In simulation it cut Mars Colony critical-danger days from 107–183 (best non-AI baselines) to 0. University course project.</p><div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">Simulation</span><span class="stack-tag">Optimization</span></div><div class="project-links"><a href="https://github.com/m-m-s-b-s/nexus-resource-allocation" target="_blank" rel="noopener" class="project-link">↗ GitHub</a></div></div>
+      <div class="project-card"><span class="project-num">04</span><span class="project-tag">Machine Learning</span><h3 class="project-title">Pulsar Star Classification</h3><p class="project-desc">Detects pulsars in 17,898 radio signals (HTRU2). Logistic Regression reached 97.68% test accuracy and 0.97 ROC-AUC on data where only 9% of signals are real pulsars. University course project (pair work).</p><div class="project-stack"><span class="stack-tag">Python</span><span class="stack-tag">scikit-learn</span><span class="stack-tag">Data Science</span></div><div class="project-links"><a href="https://github.com/m-m-s-b-s/pulsar-star-classification" target="_blank" rel="noopener" class="project-link">↗ GitHub</a></div></div>
     </div>
   </div>
 </section>
@@ -400,7 +405,7 @@ body.light .project-card:hover{box-shadow:0 24px 60px -24px rgba(0,153,125,.35);
       <button class="filter-btn" onclick="filterPosts('news',this)">News <span class="post-count-badge" id="cnt-news"></span></button>
       <button class="filter-btn" onclick="filterPosts('life',this)">Life <span class="post-count-badge" id="cnt-life"></span></button>
     </div>
-    <div class="posts-grid" id="postsGrid"><div class="no-posts"><span>✍️</span>No posts yet. Open Admin to write your first one.</div></div>
+    <div class="posts-grid" id="postsGrid"><div class="no-posts"><span>✍️</span>No posts yet. Check back soon.</div></div>
   </div>
 </section>
 <section id="contact">
@@ -489,7 +494,7 @@ document.addEventListener('mousemove',e=>{cursorEl.style.left=(e.clientX-4)+'px'
 window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',scrollY>40));
 document.getElementById('footerYear').textContent=new Date().getFullYear();
 function toggleMobile(){document.getElementById('mobileMenu').classList.toggle('open');}
-const PASS='Sadi123@$*#';
+const PASS_HASH='c45c401422b15ea9a3c03c08f35a087fb362012b8740979b2a634c7115d14ac5';
 let posts=JSON.parse(localStorage.getItem('shakil_posts')||'[]');
 let remotePosts=null;
 function publicPosts(){return remotePosts!==null?remotePosts:posts;}
@@ -652,9 +657,12 @@ function sendContact(){
   fb.style.display='block';fb.style.color='var(--accent)';fb.textContent='✓ Opening your email client...';
 }
 function openAdmin(){document.getElementById('admin-overlay').style.display='block';document.body.style.overflow='hidden';const in_=sessionStorage.getItem('shakil_admin');document.getElementById('login-form').style.display=in_?'none':'block';document.getElementById('post-editor').style.display=in_?'block':'none';if(in_){renderAdminStats();renderAdminPosts();renderPhotoGrid();}}
+if(location.hash==='#admin'){window.addEventListener('load',function(){openAdmin();});}
+window.addEventListener('hashchange',function(){if(location.hash==='#admin')openAdmin();});
 function closeAdmin(){document.getElementById('admin-overlay').style.display='none';document.body.style.overflow='';}
 document.getElementById('admin-overlay').addEventListener('click',e=>{if(e.target.id==='admin-overlay')closeAdmin();});
-function login(){const v=document.getElementById('adminPass').value;if(v===PASS){sessionStorage.setItem('shakil_admin','1');document.getElementById('login-form').style.display='none';document.getElementById('post-editor').style.display='block';document.getElementById('loginError').style.display='none';renderAdminStats();renderAdminPosts();renderPhotoGrid();}else{document.getElementById('loginError').style.display='block';document.getElementById('adminPass').value='';}}
+async function sha256Hex(t){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(t));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
+async function login(){const v=document.getElementById('adminPass').value;let ok=false;try{ok=(await sha256Hex(v))===PASS_HASH;}catch(e){}if(ok){sessionStorage.setItem('shakil_admin','1');document.getElementById('login-form').style.display='none';document.getElementById('post-editor').style.display='block';document.getElementById('loginError').style.display='none';renderAdminStats();renderAdminPosts();renderPhotoGrid();}else{document.getElementById('loginError').style.display='block';document.getElementById('adminPass').value='';}}
 function showTab(tab){['new','manage','photos','import'].forEach(t=>{const el=document.getElementById('tab-'+t);if(el)el.style.display=t===tab?'block':'none';});document.querySelectorAll('.tab-btn').forEach((b,i)=>{const tabs=['new','manage','photos','import'];b.classList.toggle('active',tabs[i]===tab);});if(tab==='manage')renderAdminPosts();if(tab==='photos')renderPhotoGrid();}
 function renderAdminStats(){const pub=posts.filter(p=>p.status!=='draft').length,drafts=posts.filter(p=>p.status==='draft').length,cats={blog:0,cricket:0,news:0,life:0};posts.forEach(p=>{if(p.status!=='draft')cats[p.category]=(cats[p.category]||0)+1;});document.getElementById('adminStatsRow').innerHTML=`<div class="admin-stat"><strong>${pub}</strong>Published</div><div class="admin-stat"><strong>${drafts}</strong>Drafts</div><div class="admin-stat"><strong>${cats.blog}</strong>Blog</div><div class="admin-stat"><strong>${cats.cricket}</strong>Cricket</div><div class="admin-stat"><strong>${cats.news}</strong>News</div><div class="admin-stat"><strong>${cats.life}</strong>Life</div>`;}
 function updateWordCount(){const txt=document.getElementById('postContent').value;document.getElementById('wordCount').textContent=wordCount(txt)+' words · ~'+readTime(txt)+' min read';}
@@ -786,7 +794,20 @@ function installPWA(){if(deferredPrompt){deferredPrompt.prompt();}}
   }
   var statNum=document.getElementById('postCountHero');
   var statLabel=statNum?statNum.parentElement.querySelector('.stat-label'):null;
+  function hideEmptyFilters(){
+    try{
+      var pp=(window.__publicPosts?window.__publicPosts():[]).filter(function(x){return x.status!=='draft';});
+      ['blog','cricket','news','life'].forEach(function(c){
+        var badge=document.getElementById('cnt-'+c);
+        if(!badge)return;
+        var btn=badge.parentElement;
+        var has=pp.some(function(x){return x.category===c;});
+        if(btn)btn.style.display=has?'':'none';
+      });
+    }catch(e){}
+  }
   function toggle(){
+    hideEmptyFilters();
     var n=publishedCount();
     var blog=document.getElementById('blog');
     if(blog)blog.style.display=n?'':'none';
@@ -825,6 +846,15 @@ function installPWA(){if(deferredPrompt){deferredPrompt.prompt();}}
   var mob=document.querySelector('.mobile-menu');
   if(mob)mob.appendChild(make());
   apply(document.body.classList.contains('light')||saved==='light');
+})();
+</script>
+<script>
+(function(){
+  var b=document.getElementById('resumeBtn');
+  if(!b)return;
+  fetch('resume.pdf',{method:'HEAD',cache:'no-store'}).then(function(r){
+    if(r.ok&&(r.headers.get('content-type')||'').indexOf('pdf')>-1)b.style.display='';
+  }).catch(function(){});
 })();
 </script>
 </body>
